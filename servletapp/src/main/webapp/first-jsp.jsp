@@ -12,9 +12,9 @@
 <body>
 <br>
 <%= LocalDateTime.now() %>
-<h1><%= request.getRequestURI() %>
-</h1>
-
+<h1><%= request.getParameter("path") %></h1>
+<h2> <a href='?path=<%= request.getAttribute("parentPath") %>'> UP </a> </h2>
+    
 <table>
     <tr>
         <th>Name</th>
@@ -23,7 +23,7 @@
     </tr>
     <% for (File item : filesList) { %>
     <tr>
-        <td> <a href="<%  %>"> <%= item.getName() %>
+        <td> <a href="?path=<%=item.getAbsolutePath() %>"> <%= item.getName() %>
         </a>
         </td>
         <td><%= item.length() %>
