@@ -22,10 +22,14 @@ import java.util.stream.Collectors;
 public class jspServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<File> filesList = Files.walk(Paths.get(req.getParameter("path") == null ? "src/main" : req.getParameter("path")))
+        String path = req.getParameter("path") == null ? "../" : req.getParameter("path");
+        String parentPath = new File(path).getAbsoluteFile().getParent();
+
+        List<File> filesList = Files.walk(Paths.get(path))
                 .map(Path::toFile)
                 .collect(Collectors.toList());
         req.setAttribute("filesList", filesList);
+        req.setAttribute("parentPath", parentPath);
         getServletContext().getRequestDispatcher("/first-jsp.jsp").forward(req, resp);
     }
 }
