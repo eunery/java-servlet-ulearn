@@ -36,7 +36,7 @@
     <tr>
         <td>
             <%if (!item.isDirectory()) { %>
-            <a href="?path=<%=item.getAbsolutePath() %>" download="<%= item.getAbsolutePath()%>"> <span>📄</span> </a>
+            <a href="?path=<%=item.getAbsolutePath() %>&download=true" download="<%= item.getAbsolutePath()%>"> <span>📄</span> </a>
 
             <% } %>
             <%if (item.isDirectory()) { %>
