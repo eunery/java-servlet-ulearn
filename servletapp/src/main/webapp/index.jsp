@@ -57,5 +57,10 @@
     </tr>
     <% } %>
 </table>
+<form method="POST" action="logout">
+    <div>
+        <input type="submit" value="Logout">
+    </div>
+</form>
 </body>
 </html>

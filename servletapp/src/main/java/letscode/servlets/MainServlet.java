@@ -1,4 +1,7 @@
-package letscode;
+package letscode.servlets;
+
+import letscode.accounts.UserProfile;
+import letscode.accounts.AccountService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -16,10 +19,24 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@WebServlet("/")
-public class jspServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/")
+public class MainServlet extends HttpServlet {
+
+    AccountService accountService = new AccountService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String userName = "";
+
+        try {
+            UserProfile userProfile = accountService.getUserBySessionId(req.getSession().getId());
+            userName = userProfile.getLogin();
+        } catch (RuntimeException exception) {
+            resp.sendRedirect("/login.jsp");
+            return;
+        }
+//        String path = "C:/Users/" + userName;
         String path = req.getParameter("path") == null ? "../" : req.getParameter("path");
         String parentPath = new File(path).getAbsoluteFile().getParent();
 
@@ -36,7 +53,7 @@ public class jspServlet extends HttpServlet {
             req.setAttribute( "filesDate", filesDate);
             req.setAttribute("filesList", filesList);
             req.setAttribute("parentPath", parentPath);
-            getServletContext().getRequestDispatcher("/first-jsp.jsp").forward(req, resp);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
         } else {
             String filePath = req.getParameter("path");
             File downloadFile = new File(filePath);
