@@ -13,5 +13,6 @@
     Password: <input type="password" name="pass"/> ${passError}
     <input type="submit" value="Sign in">
 </form>
+<button onclick="window.location.href = '/registration.jsp';">sign up</button>
 </body>
 </html>

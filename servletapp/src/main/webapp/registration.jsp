@@ -12,7 +12,7 @@
     Login: <input type="text" name="login"/> ${loginError}
     Password: <input type="password" name="pass"/>${passError}
     Email: <input type="email" name="email"/>${emailError}
+    <input type="submit" value="Sign up">
 </form>
-<a href="registration.html"><input type="button" value="Sign up"></a>
 </body>
 </html>

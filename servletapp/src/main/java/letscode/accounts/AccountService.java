@@ -1,47 +1,44 @@
 package letscode.accounts;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class AccountService {
-    private final Map<String, UserProfile> loginToProfile = new HashMap<>();
-    private final Map<String, UserProfile> sessionIdToProfile = new HashMap<>();
-    private List<UserProfile> users = new ArrayList<UserProfile>() {};
+    private static final Path homeDirectory = Paths.get("D:\\test\\users\\");
 
-    public AccountService() {
-        loginToProfile.put("admin",new UserProfile("admin", "admin", "1@1.ru"));
+    private static final Map<String, UserProfile> loginToProfile ;
+    private static final Map<String, UserProfile> sessionIdToProfile ;
+
+    static{
+        loginToProfile = new HashMap<>();
+        sessionIdToProfile = new HashMap<>();
+
+        loginToProfile.put("admin", new UserProfile("admin"));
     }
 
-    public AccountService(UserProfile userProfile){
-        users.add(userProfile);
-    }
+    public static Path getHomeDirectory(){ return homeDirectory; }
 
-    public void addNewUser(UserProfile userProfile) {
+    public static void addNewUser(UserProfile userProfile) {
         loginToProfile.put(userProfile.getLogin(), userProfile);
     }
 
-    public UserProfile getUserByLogin(String login) {
+    public static UserProfile getUserByLogin(String login) {
         return loginToProfile.get(login);
     }
 
-    public UserProfile getUserBySessionId(String sessionId) {
+    public static UserProfile getUserBySessionId(String sessionId) {
         return sessionIdToProfile.get(sessionId);
     }
 
-    public void addSession(String sessionId, UserProfile userProfile) {
+    public static void addSession(String sessionId, UserProfile userProfile) {
         sessionIdToProfile.put(sessionId, userProfile);
     }
 
-    public void deleteSession(String sessionId) {
+    public static void deleteSession(String sessionId) {
         sessionIdToProfile.remove(sessionId);
-    }
-    public boolean checkUserExist(UserProfile userProfile){
-        for (UserProfile item: users) {
-            if (getUserByLogin(item.getLogin()).equals(userProfile))
-                return true;
-        }
-        return false;
     }
 }
