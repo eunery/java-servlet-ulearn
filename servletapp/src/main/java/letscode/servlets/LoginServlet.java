@@ -37,7 +37,8 @@ public class LoginServlet extends HttpServlet {
 
         AccountService.addSession(req.getSession().getId(), profile);
         req.getSession().setAttribute("login", login);
-        if(!AccountService.getHomeDirectory().endsWith(login))
+        String path = AccountService.getHomeDirectory().toString() + '\\' + login;
+        if(!path.endsWith(login))
             Files.createDirectory(Paths.get(AccountService.getHomeDirectory().toString() + '\\' + login));
         resp.sendRedirect("/");
 
