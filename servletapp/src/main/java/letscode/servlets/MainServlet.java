@@ -51,6 +51,7 @@ public class MainServlet extends HttpServlet {
             req.setAttribute("filesDate", filesDate);
             req.setAttribute("filesList", filesList);
             req.setAttribute("parentPath", parentPath);
+            req.setAttribute("currentDir", path);
             getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
         } else {
             resp.sendRedirect("/download");
