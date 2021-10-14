@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String pass = req.getParameter("pass");
-        if (login == null || pass == null){
+        if (login == null || pass == null || login.equals("")||pass.equals("")){
             resp.sendRedirect("login.jsp");
             return;
         }
@@ -37,9 +37,9 @@ public class LoginServlet extends HttpServlet {
 
         AccountService.addSession(req.getSession().getId(), profile);
         req.getSession().setAttribute("login", login);
-        String path = AccountService.getHomeDirectory().toString() + '\\' + login;
+        String path = AccountService.getHomeDirectory() + '\\' + login;
         if(!path.endsWith(login))
-            Files.createDirectory(Paths.get(AccountService.getHomeDirectory().toString() + '\\' + login));
+            Files.createDirectory(Paths.get(AccountService.getHomeDirectory() + '\\' + login));
         resp.sendRedirect("/");
 
     }

@@ -27,7 +27,7 @@ public class RegistrationServlet extends HttpServlet {
             resp.sendRedirect("/registration.jsp");
             return;
         }
-        Path userDirectoryPath = Paths.get(AccountService.getHomeDirectory().toString() + '\\' + login);
+        Path userDirectoryPath = Paths.get(AccountService.getHomeDirectory() + '\\' + login);
         if (Files.exists(userDirectoryPath)){
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;

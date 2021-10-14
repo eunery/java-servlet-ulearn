@@ -22,7 +22,7 @@
 <body>
 <br>
 <%= LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) %>
-<h1><%= request.getParameter("currentDir") %></h1>
+<h1><%= request.getAttribute("currentDir") %></h1>
 <h2> <a href='?path=<%= request.getAttribute("parentPath") %>'> back </a> </h2>
     
 <table>

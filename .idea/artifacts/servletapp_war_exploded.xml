@@ -16,7 +16,6 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.1" />
-          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.3.1" />
           <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-webapp:9.3.0.M0" />
           <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-xml:9.3.0.M0" />
           <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-util:9.3.0.M0" />
@@ -25,6 +24,8 @@
           <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-server:9.3.0.M0" />
           <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-http:9.3.0.M0" />
           <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-io:9.3.0.M0" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.25" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.11.4" />
         </element>
       </element>
       <element id="directory" name="META-INF">

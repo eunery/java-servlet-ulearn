@@ -32,9 +32,9 @@ public class MainServlet extends HttpServlet {
             resp.sendRedirect("/login");
         }
         if (path == null || path.equals("")) {
-            path = AccountService.getHomeDirectory().toString() + '\\' + userProfile.getLogin();
+            path = AccountService.getHomeDirectory() + '\\' + userProfile.getLogin();
         }
-        if (!path.startsWith(AccountService.getHomeDirectory().toString() + '\\' + userProfile.getLogin())){
+        if (!path.startsWith(AccountService.getHomeDirectory() + '\\' + userProfile.getLogin())){
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
