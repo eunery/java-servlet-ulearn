@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
+    private final AccountService accountService = AccountService.getInstance();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
@@ -27,15 +28,15 @@ public class RegistrationServlet extends HttpServlet {
             resp.sendRedirect("/registration.jsp");
             return;
         }
-        Path userDirectoryPath = Paths.get(AccountService.getHomeDirectory() + '\\' + login);
+        Path userDirectoryPath = Paths.get(accountService.getHomeDirectory() + '\\' + login);
         if (Files.exists(userDirectoryPath)){
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         Files.createDirectory(userDirectoryPath);
         UserProfile profile = new UserProfile(login, pass, email);
-        AccountService.addNewUser(profile);
-        AccountService.addSession(req.getSession().getId(), profile);
+        accountService.addNewUser(profile);
+        accountService.addSession(req.getSession().getId(), profile);
         resp.setStatus(HttpServletResponse.SC_OK);
         resp.sendRedirect("/");
     }

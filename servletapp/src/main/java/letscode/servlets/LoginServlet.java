@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 
 @WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
+    private final AccountService accountService = AccountService.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("login.jsp").forward(req, resp);
@@ -28,18 +29,18 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        UserProfile profile = AccountService.getUserByLogin(login);
+        UserProfile profile = accountService.getUserByLogin(login);
         if (profile == null || !profile.getPass().equals(pass)){
             resp.sendRedirect("login.jsp");
             return;
         }
 
 
-        AccountService.addSession(req.getSession().getId(), profile);
+        accountService.addSession(req.getSession().getId(), profile);
         req.getSession().setAttribute("login", login);
-        String path = AccountService.getHomeDirectory() + '\\' + login;
+        String path = accountService.getHomeDirectory() + '\\' + login;
         if(!path.endsWith(login))
-            Files.createDirectory(Paths.get(AccountService.getHomeDirectory() + '\\' + login));
+            Files.createDirectory(Paths.get(accountService.getHomeDirectory() + '\\' + login));
         resp.sendRedirect("/");
 
     }

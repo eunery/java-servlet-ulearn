@@ -21,28 +21,28 @@ import java.util.stream.Stream;
 
 @WebServlet(urlPatterns = "/")
 public class MainServlet extends HttpServlet {
-
+    private final AccountService accountService = AccountService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        UserProfile userProfile = AccountService.getUserBySessionId(req.getSession().getId());
+        UserProfile userProfile = accountService.getUserBySessionId(req.getSession().getId());
         String path = req.getParameter("path");
-        if (userProfile == null){
+        if (userProfile == null || userProfile.equals(null)){
             resp.sendRedirect("/login");
         }
         if (path == null || path.equals("")) {
-            path = AccountService.getHomeDirectory() + '\\' + userProfile.getLogin();
+            path = accountService.getHomeDirectory() + '\\' + userProfile.getLogin();
         }
-        if (!path.startsWith(AccountService.getHomeDirectory() + '\\' + userProfile.getLogin())){
+        if (!path.startsWith(accountService.getHomeDirectory() + '\\' + userProfile.getLogin())){
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         String parentPath = new File(path).getAbsoluteFile().getParent();
         if (req.getParameter("download") == null) {
             List<File> filesList = Stream.of(new File(path).listFiles())
-            .map(File::getAbsoluteFile)
-            .collect(Collectors.toList());
+                    .map(File::getAbsoluteFile)
+                    .collect(Collectors.toList());
 
             Map<File, FileTime> filesDate = new HashMap<File, FileTime>() {};
             for (File item : filesList) {
@@ -69,6 +69,7 @@ public class MainServlet extends HttpServlet {
         }
 
     }
+
 
 
 }

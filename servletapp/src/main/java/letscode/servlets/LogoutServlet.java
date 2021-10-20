@@ -12,10 +12,11 @@ import java.io.IOException;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
+    private final AccountService accountService = AccountService.getInstance();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String sessionId = req.getSession().getId();
-        AccountService.deleteSession(sessionId);
+        accountService.deleteSession(sessionId);
         resp.sendRedirect(super.getServletContext().getContextPath());
     }
 }

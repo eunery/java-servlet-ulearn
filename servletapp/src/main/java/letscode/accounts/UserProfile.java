@@ -1,8 +1,6 @@
 package letscode.accounts;
 
 
-import java.util.*;
-
 public class UserProfile {
     private final String login;
     private final String pass;
